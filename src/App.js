@@ -1,30 +1,29 @@
 import React from 'react';
 
 function App() {
-  const recargar = async () => {
-    try {
-      const response = await fetch('https://mi-recarga-backend.onrender.com/api/recargar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          numero: '+5355424546',
-          monto: 500,
-        }),
-      });
-
-      const data = await response.json();
-      alert(data.mensaje || 'Recarga enviada correctamente');
-    } catch (error) {
-      alert('Error al enviar la recarga');
-    }
+  const recargar = () => {
+    fetch('https://mi-recarga-backend.onrender.com/api/recargar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        numero: '+5355424546',
+        monto: 500
+      })
+    })
+    .then(res => res.json())
+    .then(data => alert('✅ Recarga completada'))
+    .catch(err => alert('❌ Error en la recarga'));
   };
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Recargas a Cuba</h1>
-      <button onClick={recargar}>Recargar 500 CUP a +53 55424546</button>
+      <h2>Recarga directa a Cuba</h2>
+      <p>Recargar 500 CUP al número +53 55424546</p>
+      <button onClick={recargar} style={{ padding: '10px 20px', fontSize: '16px' }}>
+        Recargar 500 CUP
+      </button>
     </div>
   );
 }
